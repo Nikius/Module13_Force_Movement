@@ -29,19 +29,18 @@ namespace MyAssets.Scripts
             
             float inputX = -Input.GetAxis(HorizontalAxis);
             float inputZ = -Input.GetAxis(VerticalAxis);
+            
+            _direction = new Vector3(inputX, 0, inputZ);
 
-            if (new Vector3(inputX, 0, inputZ).magnitude >= MinMove)
-            {
+            if (_direction.magnitude >= MinMove)
                 _isMove = true;
-                _direction = new Vector3(inputX, 0, inputZ).normalized;
-            }
         }
 
         private void FixedUpdate()
         {
             if (_isMove)
             {
-                _rigidbody.AddForce(_direction * _speed, ForceMode.Acceleration);
+                _rigidbody.AddForce(_direction.normalized * _speed, ForceMode.Acceleration);
                 _isMove = false;
             }
         }
